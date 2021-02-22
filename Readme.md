@@ -15,3 +15,7 @@ Adventures so far:
 | 1 | Simple Save/Load System | Completed | Serialization/Deserialization of runtime objects and physical storage of these objects |
 | 2 | Graph Path Finding | Completed but I might add more pathfinding algorithms | Graph-Node based pathfinding and efficent storage of graph paths in form of objects. |
 | 3 | Graphing mathematical functions | Just Started | Graphing mathematical functions by use of different rendering types. |
+
+
+
+Textures and Materials are from here https://assetstore.unity.com/packages/p/gridbox-prototype-materials-129127
