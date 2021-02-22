@@ -7,15 +7,36 @@ using UnityEngine;
 public static class STHelper
 {
 
-    public static List<Collider2D> GetCollidersInRange(Vector3 position, float radius)
+    public static List<Collider> GetCollidersInRangeByTag(Vector3 position, float radius, string tag)
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius);
+        Collider[] colliders = Physics.OverlapSphere(position, radius);
+        colliders = colliders.Where(c => c.gameObject.CompareTag(tag)).ToArray();
         colliders = OrderCollidersByDistance(position, colliders);
         return colliders.ToList();
     }
 
+    public static List<Collider> GetCollidersInRange(Vector3 position, float radius)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, radius);
+        colliders = OrderCollidersByDistance(position, colliders);
+        return colliders.ToList();
+    }
 
-    public static Collider2D[] OrderCollidersByDistance(Vector3 position, Collider2D[] colliders)
+    public static Collider[] OrderCollidersByDistance(Vector3 position, Collider[] colliders)
+    {
+        return colliders.OrderBy(col => Vector3.Distance(col.transform.position, position)).ToArray();
+    }
+
+
+
+    public static List<Collider2D> GetCollidersInRange2D(Vector3 position, float radius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius);
+        colliders = OrderCollidersByDistance2D(position, colliders);
+        return colliders.ToList();
+    }
+
+    public static Collider2D[] OrderCollidersByDistance2D(Vector3 position, Collider2D[] colliders)
     {
         return colliders.OrderBy(col => Vector3.Distance(col.transform.position, position)).ToArray();
     }
