@@ -3,7 +3,7 @@
 
 This will be my dumping ground for my minor escapades in Unity
 
-All projects are Under: [Assets/Prototypes/](https://github.com/Math-Man/UnityProvingGrounds/tree/main/Assets/Prototypes)
+All projects are Under: [Assets/Prototypes/](https://github.com/Math-Man/UnityProvingGrounds/tree/main/Assets/Prototypes) Each project is self-isolated anything these projects share will be put under [Assets/](Assets/) with a folder prefix of "**Generic**"
 
 Each Unity adventure I'll take will be located under Assets/Prototypes/ and contain readme detailing that project
 
