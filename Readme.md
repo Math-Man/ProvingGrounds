@@ -13,7 +13,7 @@ Adventures so far:
 | 0 | [Generic Helper Scripts](Assets/GenericScripts/Utility) | Completed | My set of helper scripts that I pretty much use everywhere (STHelper and RGHelper) |
 | 1 | [Simple Save/Load System](Assets/Prototypes/SaveLoadSystem) | Completed | Serialization/Deserialization of runtime objects and physical storage of these objects |
 | 2 | [Graph Path Finding](Assets/Prototypes/SearchAlgorithms) | Completed but I might add more pathfinding algorithms | Graph-Node based pathfinding and efficent storage of graph paths in form of objects. |
-| 3 | Stats System | Turning it into something workable... | Property management system that I used in one of my projects, refactored to fit into any project |
+| 3 | [Stats System](Assets/Prototypes/StatSystem) | Has a workable framework needs editor and another layer of abstraction | Property management system that I used in one of my projects, refactored to fit into any project |
 | 4 | Graphing mathematical functions | Just Started | Graphing mathematical functions by use of different rendering types. |
 
 
