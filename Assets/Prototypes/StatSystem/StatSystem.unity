@@ -154,9 +154,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PropertiesToGenerate:
-  - Health
-  - Attack
-  - Defense
+  - Name: Prop1
+    DefaultVal: 100
+    MinVal: 0
+    MaxVal: 0
+  - Name: Prop2
+    DefaultVal: 50
+    MinVal: 0
+    MaxVal: 0
+  PropCount: 2
 --- !u!4 &391470784
 Transform:
   m_ObjectHideFlags: 0
@@ -165,7 +171,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391470782}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 443.3042, y: 120.181465, z: -35.451065}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -183,6 +189,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1729ca8e30cab2a4db7b3fe4dc81a83c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statName: Default
+  baseValue: 1
+  increase: 1
+  multiplier: 1
+  flatAdded: 0
+  flatMultiplier: 1
 --- !u!1 &558669767
 GameObject:
   m_ObjectHideFlags: 0
