@@ -53,7 +53,6 @@ public class StatManagerEditor : Editor
         }
     }
 
-
     private System.Object[,] BuildObjectsArray() 
     {
         System.Object[,] arr = new System.Object[StatManagerRef.PropCount, 4];
@@ -73,6 +72,7 @@ public class StatManagerEditor : Editor
         }
         return arr;
     }
+
     private void RecollectValues(System.Object[,] generatedData) 
     {
         for (int i = 0; i < StatManagerRef.PropertiesToGenerate.Count; i++)

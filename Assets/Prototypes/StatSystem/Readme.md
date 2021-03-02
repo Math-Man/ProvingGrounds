@@ -1,0 +1,2 @@
+This is a multifaceted number cruncher and a very basic stats system combined
+It currently works but I am also working on a client addition which will further abstract the data that is being edited from the endpoints.
