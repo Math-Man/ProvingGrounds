@@ -16,6 +16,8 @@ public class StatManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+            Debug.LogError("There can be only one statManager object loaded in the scene");
         Instance = this;
         BuiltObjectClasses = new Dictionary<object, Dictionary<string, StatBase>>();
     }
