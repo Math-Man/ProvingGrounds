@@ -3,7 +3,7 @@ This is a multifaceted number cruncher and a very basic stats system combined.
 This is something I am currently using in my my projects where I have to keep a set of static numbers that should be easy to change and adjust.
 
 
-[![IMAGE ALT TEXT HERE](/Images/Interface.png)](/Images/Interface.png)
+[![IMAGE ALT TEXT HERE](https://github.com/Math-Man/UnityProvingGrounds/blob/main/Assets/Prototypes/StatSystem/Images/Interface.png)](https://github.com/Math-Man/UnityProvingGrounds/blob/main/Assets/Prototypes/StatSystem/Images/Interface.png)
 
 Through code several different modifiers of a stat can be modified these are: Base Value, Percentage Increase, Percantage Multiplier, Flat added, and Flat Multiplier.
 
