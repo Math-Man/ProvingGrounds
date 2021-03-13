@@ -25,16 +25,16 @@ public class StatManager : MonoBehaviour
     public void RegisterObject(System.Object obj)
     {
         BuiltObjectClasses.Add(obj, new Dictionary<string, StatBase>());
-        GenerateStateBaseObjects(obj);
+        GenerateStatBaseObjects(obj);
     }
 
     public void RegisterObject(System.Object obj, Dictionary<string, StatBaseValuesSet> defaults) 
     {
         BuiltObjectClasses.Add(obj, new Dictionary<string, StatBase>());
-        GenerateStateBaseObjects(obj, defaults);
+        GenerateStatBaseObjects(obj, defaults);
     }
 
-    public void GenerateStateBaseObjects(System.Object obj)
+    public void GenerateStatBaseObjects(System.Object obj)
     {
         Dictionary<string, StatBase> objDict = BuiltObjectClasses[obj];
         foreach (StatHandleObject sho in PropertiesToGenerate)
@@ -44,7 +44,7 @@ public class StatManager : MonoBehaviour
         }
     }
 
-    public void GenerateStateBaseObjects(System.Object obj, Dictionary<string, StatBaseValuesSet> defaults)
+    public void GenerateStatBaseObjects(System.Object obj, Dictionary<string, StatBaseValuesSet> defaults)
     {
         Dictionary<string, StatBase> objDict = BuiltObjectClasses[obj];
         foreach (StatHandleObject sho in PropertiesToGenerate)
