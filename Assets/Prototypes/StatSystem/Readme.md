@@ -1,6 +1,8 @@
 This is a multifaceted number cruncher and a very basic stats system combined.
 
-This is something I am currently using in my my projects where I have to keep a set of static numbers that should be easy to change and adjust.
+This "tool" is something I am currently using in my projects where I have to keep a set of static numbers that should be easy to change and adjust. With the StatsClient.cs used as a component on GameObjects it makes it easier to crunch down numbers where individual actors are "interacting".
+
+I'll be adding a small turn based game by using this "framework" as an example soon.
 
 
 [![IMAGE ALT TEXT HERE](https://github.com/Math-Man/UnityProvingGrounds/blob/main/Assets/Prototypes/StatSystem/Images/Interface.png)](https://github.com/Math-Man/UnityProvingGrounds/blob/main/Assets/Prototypes/StatSystem/Images/Interface.png)
