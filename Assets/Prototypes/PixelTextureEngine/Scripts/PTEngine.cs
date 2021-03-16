@@ -10,10 +10,16 @@ using System.Threading.Tasks;
 [RequireComponent(typeof(Renderer))]
 public class PTEngine : MonoBehaviour
 {
-    [SerializeField] [Range(1, 4096)] private int TextureWidth;
-    [SerializeField] [Range(1, 4096)] private int TextureHeight;
-    [SerializeField] bool fitToScreen;
-    [SerializeField] bool GenerateTexture;
+    [Header("Canvas Size Options")]
+    [SerializeField] [Range(100, 16384)] private int TextureWidth;
+    [SerializeField] [Range(100, 16384)] private int TextureHeight;
+    [SerializeField] [Range(1, 16384)] private int PixelsScaling = 100;
+
+    [Header("Scaling Options")]
+    [Tooltip("Setting this will cause canvas width and height to be automaticly adjusted")] [SerializeField] bool autoScale;
+    [Tooltip("Setting this will cause canvas width and height to be automaticly adjusted")] [SerializeField] bool fitToScreen;
+    [Tooltip("Setting this will cause canvas width and height to be automaticly adjusted")] [SerializeField] bool FitWidth;
+    [Tooltip("Setting this will cause canvas width and height to be automaticly adjusted")] [SerializeField] bool GenerateTexture;
 
     private Renderer ptRenderer;
 
@@ -24,28 +30,41 @@ public class PTEngine : MonoBehaviour
     {
         MainCam = Camera.main;
 
-        if (fitToScreen) 
+
+        if (autoScale && !fitToScreen) 
+        {
+            transform.localScale = Vector3.Scale(transform.localScale, new Vector3(TextureWidth / 100, TextureHeight / 100, 1));
+        }
+
+        if (fitToScreen && !autoScale) 
         {
             float quadHeight = MainCam.orthographicSize * 2.0f;
             float quadWidth = quadHeight * Screen.width / Screen.height;
             transform.localScale = new Vector3(quadWidth, quadHeight, 1);
 
-            TextureWidth = Mathf.FloorToInt(TextureHeight * (quadWidth / quadHeight));
-
+            if(FitWidth)
+                TextureWidth = Mathf.FloorToInt(TextureHeight * (quadWidth / quadHeight));
+            else
+                TextureHeight = Mathf.FloorToInt(TextureWidth * (quadHeight / quadWidth));
         }
-
-
-
 
         ptRenderer = GetComponent<Renderer>();
 
         if (GenerateTexture)
         {
-            Texture2D texture = new Texture2D(Mathf.FloorToInt(transform.localScale.x) * 100, Mathf.FloorToInt(transform.localScale.y) * 100);
+            TextureWidth = TextureWidth * Mathf.FloorToInt((transform.localScale.x)) / 2;
+            TextureHeight = TextureHeight * Mathf.FloorToInt((transform.localScale.y)) / 2;
+            Texture2D texture = new Texture2D(TextureWidth, TextureHeight, TextureFormat.RGBA32, 0, true);
             texture.filterMode = FilterMode.Point;
+            texture.mipMapBias = 0;
             ptRenderer.material.mainTexture = texture;
-            
+        }
 
+
+        if (autoScale && PixelsScaling >= 100) 
+        {
+            TextureWidth /= (PixelsScaling / 100);
+            TextureHeight /= (PixelsScaling / 100);
         }
 
         if (ptRenderer != null && ptRenderer.material.mainTexture != null)
@@ -64,13 +83,9 @@ public class PTEngine : MonoBehaviour
 
     private void Update()
     {
-        //canvas.SetPixel(Random.ColorHSV(), Random.Range(0, TextureWidth - 1), Random.Range(0, TextureHeight - 1));
         AutoFillTest();
-
-        MaterialPropertyBlock block = new MaterialPropertyBlock();
-        block.SetTexture("_MainTex", canvas.Draw(false));
-        ptRenderer.SetPropertyBlock(block);
-
+        RandomFillTest();
+        canvas.Draw(ptRenderer, false);
         
     }
 
@@ -80,7 +95,10 @@ public class PTEngine : MonoBehaviour
     {
         if (y == TextureHeight - 1)
             return;
-        canvas.SetPixel(new Color( (float)(x) % (float)(TextureWidth - 1) / 100, 0, 0), x, y);
+        canvas.SetPixel(new Color(
+            (float)(x) % (float)(TextureWidth - 1) / 100 + 0.1f,
+            (float)(y) % (float)(TextureHeight - 1)/ 33.3f + 0.1f,
+            (float)((x/TextureWidth)+y) % (float)(Mathf.Sqrt(TextureWidth*TextureWidth + TextureHeight*TextureHeight) - 1)/100 + 0.1f), x, y);
         Debug.Log(x + ", " + y);
         if (x == TextureWidth - 1)
         {
@@ -90,6 +108,13 @@ public class PTEngine : MonoBehaviour
         else
             x++;
     }
+
+    private void RandomFillTest() 
+    {
+        while(Random.Range(0, 3) <= 1)
+            canvas.SetPixel(Random.ColorHSV(), Random.Range(0, TextureWidth - 1), Random.Range(0, TextureHeight - 1));
+    }
+
 
 }
 
@@ -104,6 +129,7 @@ public class PTCanvas
     public CanvasPixel[,] canvasIndexedPixelArray;
     public Color[] colorArray;
 
+    private MaterialPropertyBlock block;
 
     public PTCanvas(Texture tex, int width, int height) 
     {
@@ -132,14 +158,11 @@ public class PTCanvas
             }
         }
 
-        //for (int i = 0; i < colorArray.Length; i++) 
-        //{
-        //    var pixel = new CanvasPixel(i, (i / width), (i % width), colorArray[i]);
-        //    canvasPixels.Add(pixel);
-        //    canvasIndexedPixelArray[(i % width), (i / width)] = pixel;
-        //}
-
         RenderTexture.active = renderTexture;
+
+        block = new MaterialPropertyBlock();
+        block.SetTexture("_MainTex", ptTexture);
+
     }
 
     private void UpdateCanvasTexture() 
@@ -157,7 +180,7 @@ public class PTCanvas
         canvasPixelsBuffer.Clear();
     }
 
-    public Texture2D Draw(bool forceAll = false) 
+    public Texture2D Draw(Renderer ptRenderer, bool forceAll = false) 
     {
         if (forceAll) 
         {
@@ -169,6 +192,7 @@ public class PTCanvas
             UpdateCanvasTexturePerPixelBasis();
         }
         ptTexture.Apply();
+        ptRenderer.SetPropertyBlock(block);
         return ptTexture;
     }
 
@@ -208,7 +232,6 @@ public class PTCanvas
         public int x;
         public int y;
         public Color col;
-
         public CanvasPixel(int index, int x, int y, Color col) 
         {
             this.index = index;
