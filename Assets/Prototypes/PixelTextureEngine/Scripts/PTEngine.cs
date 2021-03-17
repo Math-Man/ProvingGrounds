@@ -83,8 +83,25 @@ public class PTEngine : MonoBehaviour
 
     private void Update()
     {
-        AutoFillTest();
-        RandomFillTest();
+        //canvas.Background(Color.white);
+        //AutoFillTest();
+        //RandomFillTest();
+        int mouseX, mouseY;
+        Color col;
+
+        PTGeometry.Stroke = Color.red;
+        if (Input.GetMouseButton(0)) 
+        {
+            CursorInfo cursorInfo = PTUtil.CollectCursorInfo(MainCam);
+            Debug.Log(cursorInfo.mouseUVX + "," + cursorInfo.mouseUVY + 
+                " c: " + canvas.GetPixelColor(cursorInfo.mouseUVX, cursorInfo.mouseUVY));
+
+            //PTUtil.CursorValueCast(canvas, MainCam, out mouseX, out mouseY, out col);
+            //Debug.Log(mouseX + "," + mouseY + " color: " + col);
+            PTGeometry.ellipse(canvas, cursorInfo.mouseUVX, cursorInfo.mouseUVY, 25, 25);
+        }
+
+        //PTGeometry.ellipse(canvas, 250, 500, 100, 50);
         canvas.Draw(ptRenderer, false);
         
     }
@@ -111,7 +128,7 @@ public class PTEngine : MonoBehaviour
 
     private void RandomFillTest() 
     {
-        while(Random.Range(0, 3) <= 1)
+        while (Random.Range(0, 3) <= 1)
             canvas.SetPixel(Random.ColorHSV(), Random.Range(0, TextureWidth - 1), Random.Range(0, TextureHeight - 1));
     }
 
@@ -216,14 +233,31 @@ public class PTCanvas
     public void SetPixel(Color color, int x, int y) 
     {
         //var fp = canvasPixels.Find(cp => cp.x == x && cp.y == y);
-        canvasIndexedPixelArray[x, y].col = color;
-        canvasPixelsBuffer.Add(canvasIndexedPixelArray[x, y]);
+        try
+        {
+            canvasIndexedPixelArray[x, y].col = color;
+            canvasPixelsBuffer.Add(canvasIndexedPixelArray[x, y]);
+        }
+        catch (System.IndexOutOfRangeException iofre) 
+        {
+            
+        }
     }
 
     public void SetPixel(Color color, CanvasPixel p)
     {
         p.col = color;
         canvasPixelsBuffer.Add(p);
+    }
+
+    public Color GetPixelColor(int x, int y)
+    {
+        return ptTexture.GetPixel(x, y);
+    }
+
+    public Color GetPixelColorBilliner(float x, float y)
+    {
+        return ptTexture.GetPixelBilinear(x, y);
     }
 
     public struct CanvasPixel 

@@ -439,9 +439,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 626aeeb43ae68ba4db7f47bf7a95bde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextureWidth: 1000
-  TextureHeight: 1000
-  PixelsScaling: 5
+  TextureWidth: 500
+  TextureHeight: 500
+  PixelsScaling: 100
   autoScale: 1
   fitToScreen: 0
   FitWidth: 0
