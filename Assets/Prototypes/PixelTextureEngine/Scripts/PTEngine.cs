@@ -90,6 +90,8 @@ public class PTEngine : MonoBehaviour
         Color col;
 
         PTGeometry.Stroke = Color.red;
+        PTGeometry.Fill = Color.blue;
+        PTGeometry.StrokeWidth = 2;
         if (Input.GetMouseButton(0)) 
         {
             CursorInfo cursorInfo = PTUtil.CollectCursorInfo(MainCam);
@@ -98,7 +100,7 @@ public class PTEngine : MonoBehaviour
 
             //PTUtil.CursorValueCast(canvas, MainCam, out mouseX, out mouseY, out col);
             //Debug.Log(mouseX + "," + mouseY + " color: " + col);
-            PTGeometry.ellipse(canvas, cursorInfo.mouseUVX, cursorInfo.mouseUVY, 25, 25);
+            PTGeometry.ellipse(canvas, cursorInfo.mouseUVX, cursorInfo.mouseUVY, 25, 25, true);
         }
 
         //PTGeometry.ellipse(canvas, 250, 500, 100, 50);
