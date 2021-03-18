@@ -138,5 +138,35 @@ public static class PTGeometry
 
     }
 
+    /*http://members.chello.at/~easyfilter/bresenham.html*/
+    public static void plotLineWidth(PTCanvas canvas, int x0, int y0, int x1, int y1, float wd)
+    {
+        int dx = Mathf.Abs(x1 - x0), sx = x0 < x1 ? 1 : -1;
+        int dy = Mathf.Abs(y1 - y0), sy = y0 < y1 ? 1 : -1;
+        int err = dx - dy, e2, x2, y2;                          
+        float ed = dx + dy == 0 ? 1 : Mathf.Sqrt((float)dx * dx + (float)dy * dy);
+
+        for (wd = (wd + 1) / 2; ;)
+        {                                  
+            canvas.SetPixel(Stroke, x0, y0);
+            e2 = err; x2 = x0;
+            if (2 * e2 >= -dx)
+            {                                         
+                for (e2 += dy, y2 = y0; e2 < ed * wd && (y1 != y2 || dx > dy); e2 += dx)
+                    canvas.SetPixel(Stroke, x0, y2 += sy);
+                if (x0 == x1) break;
+                e2 = err; err -= dy; x0 += sx;
+            }
+            if (2 * e2 <= dy)
+            {                                          
+                for (e2 = dx - e2; e2 < ed * wd && (x1 != x2 || dx < dy); e2 += dy)
+                    canvas.SetPixel(Stroke, x2 += sx, y0);
+                if (y0 == y1) break;
+                err += dx; y0 += sy;
+            }
+        }
+    }
+
+
 
 }
