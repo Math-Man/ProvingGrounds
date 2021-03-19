@@ -11,7 +11,19 @@ public static class PTGeometry
 
     public static void rect(PTCanvas canvas, int x1, int y1, int x2, int y2) 
     {
-
+        for (int y = Math.Min(y1, y2); y < Math.Max(y1, y2); y++) 
+        {
+            for (int x = Math.Min(x1, x2); x < Math.Max(x1, x2); x++)
+            {
+                if (x > Math.Min(x1, x2) + StrokeWidth &&
+                   y > Math.Min(y1, y2) + StrokeWidth &&
+                   x < Math.Max(x1, x2) - StrokeWidth &&
+                   y < Math.Max(y1, y2) - StrokeWidth)
+                    canvas.SetPixel(Fill, x, y);
+                else
+                    canvas.SetPixel(Stroke, x, y);
+            }
+        }
     }
 
     /// <summary>
@@ -130,11 +142,6 @@ public static class PTGeometry
                 d2 = d2 + dx - dy + (rx * rx);
             }
         }
-
-    }
-
-    public static void line(PTCanvas canvas, int x1, int y1, int x2, int y2) 
-    {
 
     }
 
