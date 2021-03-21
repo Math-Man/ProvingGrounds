@@ -89,7 +89,10 @@ public class PTEngine : MonoBehaviour
         int mouseX, mouseY;
         Color col;
 
-        drawRectWidthFrameTest();
+        //drawRectWidthFrameTest();
+        PTGeometry.Stroke = Color.black;
+        //PTGeometry.plotQuadBezierSeg(canvas, 10, 10, 150, 450, 200, 300);
+
 
         //PTGeometry.ellipse(canvas, 250, 500, 100, 50);
         canvas.Draw(ptRenderer, false);
