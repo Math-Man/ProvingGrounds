@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RGHelper
+public static class RGHelper
 {
 
     public static Vector3 RandomPositionInSphere(Vector3 position, float radius, float min) 
@@ -28,6 +28,11 @@ public class RGHelper
         var V = new Vector3(PointOnCircle.x, PointOnCircle.y, Mathf.Cos(angleInRad));
         return (targetDirection * V * radius) + offset;
 
+    }
+
+    public static float Remap(float value, float from1, float to1, float from2, float to2)
+    {
+        return (value - from1) / (to1 - from1) * (to2 - from2) + from2;
     }
 
 
