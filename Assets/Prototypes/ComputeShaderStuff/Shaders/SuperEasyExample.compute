@@ -1,0 +1,17 @@
+﻿#pragma kernel Calculate
+
+
+struct Num
+{
+	float p1;   
+	float p2;
+};
+
+RWStructuredBuffer<Num> dataBuffer;
+
+[numthreads(8,1,1)]
+void Calculate (uint3 id : SV_DispatchThreadID)
+{ 
+	//Write some really hard math here
+	dataBuffer[id.x].p1 = tan(sin(dataBuffer[id.x].p1) + sin(dataBuffer[id.x].p2));
+}
