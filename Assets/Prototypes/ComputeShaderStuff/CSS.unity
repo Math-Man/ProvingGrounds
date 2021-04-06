@@ -268,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shader: {fileID: 7200000, guid: 44edf948080c2854cbbf2b6fc587aac6, type: 3}
-  batchSize: 1000000
+  batchSize: 10000
   ThreadPool: 256
   useShader: 1
   ExecuteBoth: 1
